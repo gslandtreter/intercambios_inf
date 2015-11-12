@@ -32,6 +32,12 @@ function PrintUserTable() {
         echo "    <td>". $username ."</td>";
         echo "    <td>". $email ."</td>";
         echo "    <td>". $permissions ."</td>";
+
+        echo '<td><div class="btn-group">';
+        echo '<button type="button" class="btn btn-primary" onclick="loadEditarUsuario(' . $id .' )">Editar</button>';
+        echo '<button type="button" class="btn btn-danger" onclick="loadExcluirUsuario(' . $id .' )">Excluir</button>';
+        echo '</div></td>';
+        
         echo "</tr>";
     }
 }
@@ -81,6 +87,9 @@ function PrintUserTable() {
     <![endif]-->
 </head>
 
+
+
+
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-default">
@@ -99,6 +108,7 @@ function PrintUserTable() {
                             <th>Username</th>
                             <th>E-mail</th>
                             <th>Permissão</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
 
@@ -114,8 +124,10 @@ function PrintUserTable() {
 <!--main content end-->
 
 
+
 <!--Global JS-->
 <script src="assets/js/jquery-1.10.2.min.js"></script>
+
 <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="assets/plugins/navgoco/jquery.navgoco.min.js"></script>
 <script src="assets/plugins/waypoints/waypoints.min.js"></script>
@@ -127,7 +139,13 @@ function PrintUserTable() {
 <script>
     $(document).ready(function() {
         $('#example').dataTable();
+
+
     });
+
+
+    
+
 </script>
 </body>
 

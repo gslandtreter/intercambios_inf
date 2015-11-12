@@ -31,6 +31,13 @@ function PrintAlunosTable() {
         echo "    <td>". $id ."</td>";
         echo "    <td>". $nome ."</td>";
         echo "    <td>". $curso ."</td>";
+
+        echo '<td><div class="btn-group">';
+        echo '<button type="button" class="btn btn-info" onclick="loadIntercambiosAluno(' . $id .' )">Afastamentos</button>';
+        echo '<button type="button" class="btn btn-primary" onclick="loadEditarAluno(' . $id .' )">Editar</button>';
+        echo '<button type="button" class="btn btn-danger" onclick="loadExcluirAluno(' . $id .' )">Excluir</button>';
+        echo '</div></td>';
+
         echo "</tr>";
     }
 }
@@ -97,6 +104,7 @@ function PrintAlunosTable() {
                             <th>Cartão UFRGS</th>
                             <th>Nome</th>
                             <th>Curso</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
 
@@ -104,7 +112,7 @@ function PrintAlunosTable() {
                         <?php PrintAlunosTable(); ?>
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-info" onclick="loadAlunoAddPage();">Adicionar Aluno</button>
+                <button type="button" class="btn btn-info" onclick="loadAddAlunoPage();">Adicionar Aluno</button>
             </div>
         </div>
     </div>
@@ -123,9 +131,16 @@ function PrintAlunosTable() {
 <script src="assets/plugins/dataTables/js/jquery.dataTables.js"></script>
 <script src="assets/plugins/dataTables/js/dataTables.bootstrap.js"></script>
 <script>
+
     $(document).ready(function() {
         $('#example').dataTable();
     });
+
+    //Table click event
+    $("tr td").click(function() {    
+      $(this).css("font-weight","bold");
+    });
+
 </script>
 </body>
 

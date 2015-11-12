@@ -54,9 +54,7 @@ private $dbConnection;
 	}
 
 	public function ExecuteStatement($stmt) {
-
-		if(!$stmt->execute())
-			die("Erro ao executar statement!");
+		return $stmt->execute();
 	}
 
 }
