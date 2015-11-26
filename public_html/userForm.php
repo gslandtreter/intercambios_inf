@@ -27,7 +27,6 @@ function addUser($userName, $email, $permissions) {
     $stmt = $DAO->PrepareStatement("insert into users (username, email, permissions) values (?,?,?) ");
     $stmt->bind_param('sss', $userName, $email, $permissions);
     return $DAO->ExecuteStatement($stmt);
-
 }
 
 function editUser($userID, $userName, $email, $permissions) {

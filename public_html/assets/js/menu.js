@@ -95,3 +95,62 @@ function updateAluno() {
 		$("#mainContent").load("alunos.php");
 	});
 }
+
+
+function loadAfastamentos(userID) {
+
+	$("#mainContent").load("afastamentos.php?userid=" + userID);
+	return false;
+}
+
+function loadNovoAfastamentoPage(userID) {
+
+	 $("#mainContent").load("afastamentoForm.php?method=add&userid=" + userID);
+	 return false;
+}
+
+function loadDetalhesAfastamento(afastamentoID) {
+
+	$("#mainContent").load("afastamentoForm.php?method=edit&id_afastamento=" + afastamentoID);
+	return false;
+}
+
+function updateAfastamento() {
+
+	var metodo = ($("#submitButton").text() == "Salvar Alterações") ? "edit" : "add";
+	var id_aluno = $("#fieldIDAluno").val();
+	var id_afastamento = $("#fieldID").val();
+
+	$.post( "afastamentoForm.php", {
+		id: id_afastamento,
+		id_aluno: id_aluno,
+		nome: $("#fieldNome").val(),
+		tipo: $("#fieldTipo").val(),
+		data_inicio: $("#fieldDataInicio").val(),
+		data_fim: $("#fieldDataFim").val(),
+		programa: $("#fieldPrograma").val(),
+		universidade: $("#fieldUniversidade").val(),
+		pais: $("#fieldPais").val(),
+		observacoes: $("#fieldObservacoes").val(),
+		method: metodo
+	},
+
+	function (data) {
+		alert(data);
+		$("#mainContent").load("afastamentos.php?userid=" + id_aluno);
+	});
+}
+
+function removeAfastamento(idAfastamento, idAluno) {
+
+	$.get( "afastamentoForm.php", {
+		method: "remove",
+		id_afastamento: idAfastamento
+	},
+
+	function (data) {
+		alert(data);
+		$("#mainContent").load("afastamentos.php?userid=" + idAluno);
+	});
+	return false;
+}

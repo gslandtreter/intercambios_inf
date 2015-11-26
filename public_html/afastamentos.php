@@ -16,29 +16,46 @@ if(!$auth->IsLoggedIn()) {
 $DAO = new DAO();
 $DAO->Connect();
 
+date_default_timezone_set('America/Sao_Paulo');
 
-function PrintAlunosTable() {
+function PrintAfastamentosTable($idAluno) {
 
     global $DAO;
-    $stmt = $DAO->PrepareStatement("select id_ufrgs, nome, curso from alunos");
+    $stmt = $DAO->PrepareStatement("select id, tipo, data_inicio, data_fim, programa, universidade, pais, observacoes from afastamentos where id_aluno = ?");
+
+    $stmt->bind_param('i', $idAluno);
 
     $DAO->ExecuteStatement($stmt);
-    $stmt->bind_result($id, $nome, $curso);
+    $stmt->bind_result($id, $tipo, $dataInicio, $dataFim, $programa, $universidade, $pais, $observacoes);
 
     while($stmt->fetch()) {
 
         echo "<tr>";
-        echo "    <td>". $id ."</td>";
-        echo "    <td>". $nome ."</td>";
-        echo "    <td>". $curso ."</td>";
+        echo "    <td>". $tipo ."</td>";
+        echo "    <td>". date("d/m/Y", strtotime($dataInicio)) ."</td>";
+        echo "    <td>". date("d/m/Y", strtotime($dataFim)) ."</td>";
 
         echo '<td><div class="btn-group">';
-        //echo '<button type="button" class="btn btn-info" onclick="loadIntercambiosAluno(' . $id .' )">Afastamentos</button>';
-        echo '<button type="button" class="btn btn-primary" onclick="loadEditarAluno(' . $id .' )">Editar</button>';
-        echo '<button type="button" class="btn btn-danger" onclick="loadExcluirAluno(' . $id .' )">Excluir</button>';
+        echo '<button type="button" class="btn btn-primary" onclick="loadDetalhesAfastamento('. $id .')">Mais Detalhes</button>';
+        echo '<button type="button" class="btn btn-danger" onclick="removeAfastamento('. $id .', ' . $idAluno . ')">Excluir</button>';
         echo '</div></td>';
 
         echo "</tr>";
+    }
+}
+
+function PrintName($idAluno) {
+
+    global $DAO;
+    $stmt = $DAO->PrepareStatement("select nome from alunos where id_ufrgs = ?");
+
+    $stmt->bind_param('i', $idAluno);
+
+    $DAO->ExecuteStatement($stmt);
+    $stmt->bind_result($nome);
+
+    if($stmt->fetch()) {
+        echo $nome;
     }
 }
 
@@ -91,7 +108,7 @@ function PrintAlunosTable() {
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Alunos</h3>
+                <h3 class="panel-title">Afastamentos - <?php PrintName($_GET[userid]); ?></h3>
                 <div class="actions pull-right">
                     <i class="fa fa-chevron-down"></i>
                     <i class="fa fa-times"></i>
@@ -101,18 +118,18 @@ function PrintAlunosTable() {
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>Cartão UFRGS</th>
-                            <th>Nome</th>
-                            <th>Curso</th>
+                            <th>Tipo</th>
+                            <th>Data Inicio</th>
+                            <th>Data Fim</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <?php PrintAlunosTable(); ?>
+                        <?php PrintAfastamentosTable($_GET[userid]); ?>
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-info" onclick="loadAddAlunoPage();">Adicionar Aluno</button>
+                <button type="button" class="btn btn-info" onclick="loadNovoAfastamentoPage(<?php echo $_GET[userid]; ?>);">Novo Afastamento</button>
             </div>
         </div>
     </div>
@@ -135,17 +152,6 @@ function PrintAlunosTable() {
     $(document).ready(function() {
         $('#example').dataTable();
     });
-
-    //Table click event
-    $('#example').find('td').click( function(){
-
-        //Table column filter.
-        if($(this).index() <= 2) {
-          var idAluno = $(this).parent().find('td:first').text();
-          loadAfastamentos(idAluno);
-          return false;
-      }
-  });
 
 </script>
 </body>
