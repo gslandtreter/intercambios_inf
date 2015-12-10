@@ -4,6 +4,8 @@ header('Content-Type: text/html; charset=utf-8');
 
 $config = include("config.php");
 
+session_start();
+
 class DAO {
 
 private $dbConnection;
@@ -68,21 +70,29 @@ class Authentication {
 
 	public function SendToLoginPage() {
 
-		//TODO: Integrar Login
-		$this->Login("gslandtreter");
+		header("Location: login.php");
+		die();
+
+		//$this->Login("gslandtreter");
+	}
+
+	public function SendToIndex() {
+
+		header("Location: index.php");
+		die();
 	}
 
 	public function Login($userName) {
 
-		if($this->IsLoggedIn())
+		if($this->IsLoggedIn()) {
 			return;
-
-		session_start();
+		}
 
 		$token = md5(uniqid(rand(), true));
 
 		$_SESSION['id'] = $token;
 		$_SESSION['userName'] = $userName;
+
 	}
 
 	public function Logout() {

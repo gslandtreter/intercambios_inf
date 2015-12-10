@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 11, 2015 at 08:11 PM
+-- Generation Time: Dec 10, 2015 at 08:54 PM
 -- Server version: 5.1.73
 -- PHP Version: 5.3.3
 
@@ -37,7 +37,14 @@ CREATE TABLE IF NOT EXISTS `afastamentos` (
   `pais` varchar(256) DEFAULT NULL,
   `observacoes` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `afastamentos`
+--
+
+INSERT INTO `afastamentos` (`id`, `id_aluno`, `tipo`, `data_inicio`, `data_fim`, `programa`, `universidade`, `pais`, `observacoes`) VALUES
+(1, 103023, 'Realização de Estudos', '2013-06-12', '2017-03-20', 'Convênio INF', 'INP Grenoble', 'França', 'Tudo OK');
 
 -- --------------------------------------------------------
 
@@ -59,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `alunos` (
 INSERT INTO `alunos` (`id_ufrgs`, `nome`, `curso`) VALUES
 (118551, 'Eduardo Studzinski Estima de Castro', NULL),
 (118576, 'EMANUEL MULLER RAMOS', NULL),
-(118841, 'Gisele Pinheiro de Souza', NULL),
+(118841, 'Gisele Pinheiro de Souza', 'CIC'),
 (116420, 'FABIO KROEFF CARDOSO', NULL),
 (128863, 'Paulo Schreiner', NULL),
 (129925, 'Bruno Luis de Moura Donassolo', NULL),
@@ -134,7 +141,6 @@ INSERT INTO `alunos` (`id_ufrgs`, `nome`, `curso`) VALUES
 (172968, 'DAMIEN THOMÉ LUTZ', NULL),
 (180665, 'DENNIS GIOVANI BALREIRA', NULL),
 (181046, 'HENRIQUE WEBER', NULL),
-(44685, 'Tadeu Knewitz Zubaran', NULL),
 (172865, 'BRUNO JURKOVSKI', NULL),
 (170662, 'FEDERICO WASSERMAN', NULL),
 (171594, 'GUSTAVO GARCIA VALDEZ', NULL),
@@ -258,19 +264,20 @@ INSERT INTO `alunos` (`id_ufrgs`, `nome`, `curso`) VALUES
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(64) NOT NULL,
+  `password` varchar(196) NOT NULL,
   `permissions` varchar(128) NOT NULL,
   `email` varchar(128) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `permissions`, `email`) VALUES
-(1, 'gslandtreter', 'admin', 'gslandtreter@inf.ufrgs.br'),
-(2, 'lfschauren', 'user', 'boca@apple.com');
+INSERT INTO `users` (`id`, `username`, `password`, `permissions`, `email`) VALUES
+(1, 'gslandtreter', '698dc19d489c4e4db73e28a713eab07b', 'admin', 'gslandtreter@inf.ufrgs.br'),
+(2, 'lfschauren', '698dc19d489c4e4db73e28a713eab07b', 'user', 'lfschauren@inf.ufrgs.br');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

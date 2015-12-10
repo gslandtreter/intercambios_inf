@@ -1,3 +1,22 @@
+<?php
+
+
+$config = include("config.php");
+include("functions.php");
+
+$DAO = new DAO();
+$DAO->Connect();
+
+$auth = new Authentication();
+
+if($auth->IsLoggedIn()) {
+    $auth->SendToIndex();
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -42,11 +61,11 @@
                 <div class="panel panel-primary animated flipInY">
                     <div class="panel-heading">
                         <h3 class="panel-title">     
-                           Sign In
+                           Intercambios INF - Login
                         </h3>      
                     </div>
                     <div class="panel-body">
-                       <p> Login to access your account.</p>
+                       <p> Acesse a sua conta.</p>
                         <form class="form-horizontal" role="form">
                             <div class="form-group">
                                 <div class="col-md-12">
@@ -56,16 +75,13 @@
                             </div>
                             <div class="form-group">
                                <div class="col-md-12">
-                                    <input type="password" class="form-control" id="password" placeholder="Password">
+                                    <input type="password" class="form-control" id="password" placeholder="Senha">
                                     <i class="fa fa-lock"></i>
-                                    <a href="javascript:void(0)" class="help-block">Forgot Your Password?</a>
                                 </div>
                             </div>
                             <div class="form-group">
                                <div class="col-md-12">
-                                    <a href="index.html" class="btn btn-primary btn-block">Sign in</a>
-                                    <hr />
-                                    <a href="pages-sign-up.html" class="btn btn-default btn-block">Not a member? Sign Up</a>
+                                    <a href="#" class="btn btn-primary btn-block" onclick="performLogin();">Sign in</a>
                                 </div>
                             </div>
                         </form>
@@ -80,6 +96,7 @@
     <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/plugins/waypoints/waypoints.min.js"></script>
     <script src="assets/js/application.js"></script>
+    <script src="assets/js/loginPage.js"></script>
 </body>
 
 </html>

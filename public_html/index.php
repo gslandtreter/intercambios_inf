@@ -101,16 +101,7 @@ function GetUserName() {
                         </a>
                         <ul class="dropdown-menu animated fadeInDown">
                             <li>
-                                <a href="#"><i class="fa fa-user"></i> Profile</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-calendar"></i> Calendar</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge badge-danager" id="user-inbox">5</span></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-power-off"></i> Logout</a>
+                                <a href="performLogout.php"><i class="fa fa-power-off"></i> Logout</a>
                             </li>
                         </ul>
                     </li>
@@ -136,6 +127,13 @@ function GetUserName() {
                     </a>
                 </li>
                 <?php } ?>
+
+                <li>
+                    <a href="performLogout.php" title="Logout">
+                        <i class="fa fa-power-off"></i> Logout
+                    </a>
+                </li>
+
             </ul>
         </nav>
 
